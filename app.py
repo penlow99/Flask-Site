@@ -1,5 +1,6 @@
  
 from flask import Flask, render_template, url_for, redirect
+import os 
 
 
 ############################
@@ -11,22 +12,20 @@ app = Flask(__name__)
 ##############
 ### ROUTES ###
 ##############
+#-----------------------------------------------------------------
 @app.route('/')
 def go_home():
     return redirect('/index')
 #-----------------------------------------------------------------
 @app.route('/index')
 def index():
-    return render_template('index.html', title="Patrick's Place")
+    return render_template('index.html', title="Flask Starter")
 #-----------------------------------------------------------------
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    formObj = LoginForm()
-    if formObj.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            formObj.username.data, formObj.remember_me.data))
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', user=user, form=formObj)
+## if you don't have a favicon, use this route to get rid of the 404 favicon error
+# from flask import send_from_directory
+# @app.route('/favicon.ico') 
+# def favicon():     
+#     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 #-----------------------------------------------------------------
 
 # app import check
